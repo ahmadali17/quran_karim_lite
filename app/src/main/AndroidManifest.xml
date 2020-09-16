@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.qurankarim.moshaf">
+
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="com.android.vending.BILLING" />
+
+    <application
+        android:name=".App"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_new_logo"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_new_logo_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        tools:replace="android:supportsRtl">
+        <activity android:name=".Quran.QuranIndexActivity"></activity>
+        <activity android:name=".Da3mActivity" />
+        <activity android:name=".AboutActivity" />
+        <activity android:name=".ReportProblemActivity" />
+        <activity android:name=".HesnElmoslem.HesnChapterViewActivity" />
+        <activity android:name=".HesnElmoslem.HesnIndexActivity" />
+        <activity android:name=".QuranAudio.ShowQuranAndAudio" />
+        <activity android:name=".QuranAudio.QuranIndexAudio" />
+        <activity android:name=".QuranAudio.QuranAudioMain" />
+        <activity android:name=".Azkar.AzkarShow" />
+        <activity android:name=".Azkar.AzkarMain" />
+        <activity android:name=".Sebhaa.SebhaaActivity" />
+        <activity android:name=".Adiah.AdiahActivity" />
+        <activity android:name=".Surahs.QuranIndex" />
+        <activity android:name=".Quran.SurahShow" />
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity> <!-- Sample AdMob App ID: ca-app-pub-3940256099942544~3347511713 -->
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-2923262614703652~7681859993" />
+    </application>
+
+</manifest>

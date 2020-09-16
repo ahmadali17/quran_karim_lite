@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">القرآن الكريم lite</string>
+
+    <string name="ad_mob_unit_id">ca-app-pub-2923262614703652/5055696650</string>
+    <string name="ad_mob_test">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="ad_mob_un">ca-app-pub-2923262614703652/5892203979</string>
+
+    <string name="ad_mob_native_uid">ca-app-pub-2923262614703652/4151052362</string>
+    <string name="ad_mob_native_uid_test">ca-app-pub-3940256099942544/2247696110</string>
+
+    <string name="ad_mob_da3m_uid">ca-app-pub-2923262614703652/6656004198</string>
+    <string name="ad_mob_da3m_uid_test">ca-app-pub-3940256099942544/5224354917</string>
+
+    <string name="ad_mob_app_id">ca-app-pub-2923262614703652~9605870668</string>
+</resources>

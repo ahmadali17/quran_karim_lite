@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/menu"
+        android:icon="@drawable/ic_menu"
+        android:title="menu"
+        app:showAsAction="ifRoom">
+        <menu>
+            <item
+                android:id="@+id/report_item"
+                android:icon="@drawable/ic_report"
+                android:title="إبلاغ عن مشكلة" />
+            <item
+                android:id="@+id/info_item"
+                android:icon="@drawable/ic_info"
+                android:title="عن التطبيق" />
+            <item
+                android:id="@+id/da3m_item"
+                android:icon="@drawable/ic_baseline_monetization_on_24"
+                android:title="دعم التطبيق" />
+            <item
+                android:id="@+id/evaluation_item"
+                android:icon="@drawable/ic_baseline_star_24"
+                android:title="تقييم التطبيق" />
+            <item
+                android:id="@+id/share_item"
+                android:icon="@drawable/ic_share"
+                android:title="مشاركة التطبيق" />
+
+        </menu>
+
+    </item>
+
+</menu>

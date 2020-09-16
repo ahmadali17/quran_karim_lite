@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_main"
+    android:orientation="vertical"
+    android:layoutDirection="ltr"
+    tools:context=".Azkar.AzkarMain">
+
+
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/back_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@id/sura_name_label"
+                android:onClick="backToMainActivity"
+                android:src="@drawable/ic_back" />
+
+            <TextView
+                android:id="@+id/sura_name_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:fontFamily="@font/naskh"
+                android:gravity="center"
+                android:text="أذكار"
+                android:textAlignment="center"
+                android:textColor="@android:color/white"
+                android:textSize="18sp" />
+        </LinearLayout>
+    </androidx.appcompat.widget.Toolbar>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical">
+        <Button
+            android:id="@+id/azkar_sabah"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/my_button"
+            android:text="أذكار الصباح"
+            android:textColor="@android:color/white"
+            android:textSize="25sp"
+            android:fontFamily="@font/naskh"
+            android:padding="10dp"
+            android:layout_margin="20dp"/>
+
+        <Button
+            android:id="@+id/azkar_masaa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/my_button"
+            android:text="أذكار المساء"
+            android:textColor="@android:color/white"
+            android:textSize="25sp"
+            android:fontFamily="@font/naskh"
+            android:padding="10dp"
+            android:layout_margin="20dp"/>
+
+        <Button
+            android:id="@+id/azkar_pray"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/my_button"
+            android:text="أذكار بعد الصلاة"
+            android:textColor="@android:color/white"
+            android:textSize="25sp"
+            android:fontFamily="@font/naskh"
+            android:padding="10dp"
+            android:layout_margin="20dp"/>
+    </LinearLayout>
+    <com.google.android.gms.ads.AdView
+        xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adViewMain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/ad_mob_unit_id">
+    </com.google.android.gms.ads.AdView>
+</LinearLayout>

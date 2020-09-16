@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "845357833681",
+    "firebase_url": "https://quran-81507.firebaseio.com",
+    "project_id": "quran-81507",
+    "storage_bucket": "quran-81507.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:845357833681:android:eb9bda25face7d924a14f0",
+        "android_client_info": {
+          "package_name": "com.qurankarim.moshaf"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "845357833681-g39skbht84e8n4i4587m5q58s4oj9l1v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBDpGsSr53ZdScObEwLK9iG0nFJQqPJnHg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "845357833681-g39skbht84e8n4i4587m5q58s4oj9l1v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
