@@ -16,9 +16,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.qurankarim.moshaf.App;
 import com.qurankarim.moshaf.DatabaseHelper;
 import com.qurankarim.moshaf.R;
 
@@ -34,13 +36,19 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-public class QuranIndexActivity extends AppCompatActivity implements Adapter.onSurahListener, FavAdapter.OnFavSurahListener {
+import static com.qurankarim.moshaf.App.BOOKMARK_SURA_NUMBER;
+import static com.qurankarim.moshaf.App.SHARED_PREFS;
+
+public class QuranIndexActivity extends AppCompatActivity implements Adapter.onSurahListener, FavAdapter.OnFavSurahListener,
+                        JuzAdapter.OnJuzListener{
 
     private static final String TAG = "QuranIndexActivity";
 
     private ArrayList<SurahModel> surahModelList = new ArrayList<>();
 
-    private LinearLayout favBtn, allBtn;
+    private ArrayList<JuzModel> juzModelList = new ArrayList<>();
+
+    private LinearLayout  allBtn, juzBtn;
 
     private RecyclerView surahsRecycler;
 
@@ -52,6 +60,11 @@ public class QuranIndexActivity extends AppCompatActivity implements Adapter.onS
 
     private SearchView searchView;
     private Adapter mAdapter;
+    private TextView noFavSurah;
+    private ImageView favBtn;
+    private ImageView bookmarkBtn;
+
+    private JuzAdapter juzAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,9 +73,13 @@ public class QuranIndexActivity extends AppCompatActivity implements Adapter.onS
 
         searchView = findViewById(R.id.search_action);
         surahsRecycler = findViewById(R.id.recycler_quran_index_surahs);
+        juzBtn =findViewById(R.id.juz_btn);
+        bookmarkBtn = findViewById(R.id.bookmark_btn);
+
         surahsRecycler.setLayoutManager(new LinearLayoutManager(this));
         surahsRecycler.setHasFixedSize(true);
 
+        noFavSurah = findViewById(R.id.no_fav_surah_label);
         allBtn = findViewById(R.id.all_btn);
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -89,8 +106,10 @@ public class QuranIndexActivity extends AppCompatActivity implements Adapter.onS
 
         favBtn = findViewById(R.id.fav_btn);
         String fileData = ReadFromFile("surahs.json");
-
         ConvertStringToJSON(fileData);
+
+        String juzFile = ReadFromFile("JuzIndex.json");
+        ConvertStringToJSONJuz(juzFile);
 
         allBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,6 +118,7 @@ public class QuranIndexActivity extends AppCompatActivity implements Adapter.onS
             }
         });
         favDb = new DatabaseHelper(this);
+
         favBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -110,9 +130,51 @@ public class QuranIndexActivity extends AppCompatActivity implements Adapter.onS
             }
         });
 
+        juzBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                surahsRecycler.setAdapter(juzAdapter);
+            }
+        });
+        juzAdapter = new JuzAdapter(this,juzModelList,this);
+        bookmarkBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(juzAdapter.getSelected() != null){
+                    SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS,MODE_PRIVATE);
+                    int suraNumber = Integer.parseInt(sharedPreferences.getString(BOOKMARK_SURA_NUMBER,"-1"));
+                    Intent intent = new Intent(QuranIndexActivity.this,JuzShowActivity.class);
+                    intent.putExtra("juzNumber",String.valueOf(suraNumber+1));
+                    startActivity(intent);
+                    Toast.makeText(mContext, "الانتقال للجزء "+String.valueOf(suraNumber+1), Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(mContext, "لا يوجد جزء محفوظ", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+    }
+
+    private void ConvertStringToJSONJuz(String juzFile) {
+        //NOTE: For '{' we use JSON Object and for '[' we use JSON Array
+        try {
+            // Complete Json File
+            JSONArray quranJuzs = new JSONArray(juzFile);
+            Log.d(TAG, "ConvertStringToJSONJUZ: " + quranJuzs.length());
+            for (int i = 0; i < quranJuzs.length(); i++) {
+                JSONObject juz = quranJuzs.getJSONObject(i);
+                JuzModel juzModel = new JuzModel(juz.getString("index"));
+                juzModelList.add(juzModel);
+            }
+            surahsRecycler.setAdapter(mAdapter);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     public void loadFavData() {
+
         if (favSurahsList != null) {
             favSurahsList.clear();
         }
@@ -210,6 +272,13 @@ public class QuranIndexActivity extends AppCompatActivity implements Adapter.onS
         Intent i = new Intent(QuranIndexActivity.this, SurahShow.class);
         i.putExtra("suranumber", position);
         i.putExtra("suraname", selectedSurahName);
+        startActivity(i);
+    }
+
+    @Override
+    public void onJuzClick(String position) {
+        Intent i = new Intent(QuranIndexActivity.this, JuzShowActivity.class);
+        i.putExtra("juzNumber", position);
         startActivity(i);
     }
 }

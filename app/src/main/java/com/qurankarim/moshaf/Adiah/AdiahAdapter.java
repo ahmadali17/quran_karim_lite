@@ -3,6 +3,7 @@ package com.qurankarim.moshaf.Adiah;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,21 +36,39 @@ public class AdiahAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         TextView doaaContent;
         TextView doaaReferance;
         ImageView copyDoaa;
+        ImageView shareDoaa;
 
         public ItemViewHolder(@NonNull View itemView) {
             super(itemView);
             doaaContent = itemView.findViewById(R.id.doaa_text);
             doaaReferance = itemView.findViewById(R.id.doaa_reference_text);
             copyDoaa = itemView.findViewById(R.id.copy_doaa);
+            shareDoaa =itemView.findViewById(R.id.share_doaa);
 
             copyDoaa.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     ClipboardManager clipboard = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
                     ClipData clip = ClipData.newPlainText("copied text", doaaContent.getText().toString() + "\n"
-                            + doaaReferance.getText().toString()+ "\n\n"+ "يمكنك قراءة المزيد من الأدعية و الأذكار من خلال تحميل التطبيق" + "\n"+ "https://play.google.com/store/apps/details?id=com.qurankarim.moshaf");
+                            + doaaReferance.getText().toString() + "\n\n" + "يمكنك قراءة القرآن الكريم كاملا والاستماع لأكثر من 50 مقراء مع تلاوات نادرة و لمزيد من الأدعية و الأذكار من خلال التطبيق" + "\n" + "https://play.google.com/store/apps/details?id=com.qurankarim.moshaf");
                     clipboard.setPrimaryClip(clip);
                     Toast.makeText(context, "تم النسخ", Toast.LENGTH_SHORT).show();
+                }
+            });
+            shareDoaa.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    try {
+                        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                        shareIntent.setType("text/plain");
+                        shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Quran Lite");
+                        String shareMessage = doaaContent.getText().toString() + "\n"
+                                + doaaReferance.getText().toString() + "\n\n" + "يمكنك قراءة القرآن الكريم كاملا والاستماع لأكثر من 50 مقراء مع تلاوات نادرة و لمزيد من الأدعية و الأذكار من خلال التطبيق" + "\n" + "https://play.google.com/store/apps/details?id=com.qurankarim.moshaf";
+                        shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
+                        context.startActivity(Intent.createChooser(shareIntent, "choose one"));
+                    } catch (Exception e) {
+                        //e.toString();
+                    }
                 }
             });
         }

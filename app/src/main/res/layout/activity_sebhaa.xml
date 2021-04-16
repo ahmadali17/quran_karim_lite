@@ -4,15 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@drawable/background_main"
     android:layoutDirection="ltr"
+    android:orientation="vertical"
     tools:context=".Sebhaa.SebhaaActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -29,8 +30,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_gravity="center"
+                android:layout_weight="1"
                 android:fontFamily="@font/naskh"
                 android:gravity="center"
                 android:text="السبحة"
@@ -39,45 +40,58 @@
                 android:textSize="18sp" />
         </LinearLayout>
     </androidx.appcompat.widget.Toolbar>
-
-    <LinearLayout
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_gravity="center"
+    android:gravity="center">
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_gravity="center"
-        android:gravity="center">
-        <TextView
-            android:id="@+id/sebhaa_counter"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="0"
-            android:textAlignment="center"
-            android:textSize="50sp"
-            android:textColor="@android:color/white"
-            android:fontFamily="@font/naskh"
-            android:layout_gravity="center"
-            android:gravity="center"/>
+        android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/sebhaa_click"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_margin="50dp"
-            android:src="@drawable/rosary"/>
-
-        <Button
-            android:id="@+id/reset_sebhaa"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:background="@drawable/rounded_button"
-            android:text="إعادة"
-            android:textSize="30sp"
-            android:paddingRight="30dp"
-            android:paddingLeft="30dp"
-            android:fontFamily="@font/naskh"
-            android:textColor="@android:color/white"/>
-    </LinearLayout>
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/sebhaa_counter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/naskh"
+                android:gravity="center"
+                android:text="0"
+                android:textAlignment="center"
+                android:textColor="@android:color/white"
+                android:textSize="50sp" />
+
+            <ImageView
+                android:id="@+id/sebhaa_click"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_margin="50dp"
+                android:src="@drawable/rosary" />
+
+            <Button
+                android:id="@+id/reset_sebhaa"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/rounded_button"
+                android:fontFamily="@font/naskh"
+                android:paddingLeft="30dp"
+                android:paddingRight="30dp"
+                android:text="إعادة"
+                android:textColor="@android:color/white"
+                android:textSize="30sp" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
+
 
 
 </LinearLayout>

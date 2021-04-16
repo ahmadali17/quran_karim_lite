@@ -1,8 +1,18 @@
 package com.qurankarim.moshaf;
 
 import android.app.Application;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.SharedPreferences;
+import android.media.MediaPlayer;
+import android.os.Build;
 import android.provider.Settings;
 import android.util.Log;
+import android.widget.SeekBar;
 
 import androidx.annotation.NonNull;
 
@@ -31,14 +41,35 @@ public class App extends Application {
     public static String bannerAdId = "ca-app-pub-2923262614703652/5055696650";
     public static String AppAdId = "ca-app-pub-2923262614703652~7681859993";
 
-    public static String AppId ="MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxBMOCcyf3A93utc4AUJaGez+NTfQLO0mkvwH4wwPSO9p53TZY52JlFzRIW32ezswBfepwtrADbljkKthgm7hQD2utLM8pTtr1KL2K9iV32E6NmdR7r99apIlQGwgHa3cmJ9SwKofuxS2bA7vbCZHVMjC6eW1u2KLpHew89ntdjn42A70TfyrYREQI2oaMQ6Tn7znaI2RDLVqcvlt+EbY1LsftxfiFGQYqox4y55XIVrD/gkl49mHvmt9bk70QKfanlangK1Aq0/OeYdt5UHTCCGKCXAqHRMsjBAceTMnGyoza4jTt7jWuh1WNhZ0tv2jN/U3+KB//+EBFIIqGxbfBwIDAQAB";
+    public static String AppId = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxBMOCcyf3A93utc4AUJaGez+NTfQLO0mkvwH4wwPSO9p53TZY52JlFzRIW32ezswBfepwtrADbljkKthgm7hQD2utLM8pTtr1KL2K9iV32E6NmdR7r99apIlQGwgHa3cmJ9SwKofuxS2bA7vbCZHVMjC6eW1u2KLpHew89ntdjn42A70TfyrYREQI2oaMQ6Tn7znaI2RDLVqcvlt+EbY1LsftxfiFGQYqox4y55XIVrD/gkl49mHvmt9bk70QKfanlangK1Aq0/OeYdt5UHTCCGKCXAqHRMsjBAceTMnGyoza4jTt7jWuh1WNhZ0tv2jN/U3+KB//+EBFIIqGxbfBwIDAQAB";
     private DocumentReference userDocumentReference;
 
     //public static final String nativeAdMobUID = "";
 
+    public static final String CHANNEL_ID = "exampleService";
+
+    public static MediaPlayer mPlayer;
+    public static String currentUrl;
+    public static String currentPlaySuraNumber;
+    public static String currentPlaySuraName;
+    public static String currentPlayQariName;
+    public static String currentPlayQariPath;
+    public static boolean isPlaying = false;
+
+    public static final String SHARED_PREFS = "sharedPrefs";
+    public static final String BOOKMARK_SURA_NUMBER = "bookmarkSuraNumber";
+    public static SharedPreferences sharedPreferences;
+
+
     @Override
     public void onCreate() {
         super.onCreate();
+
+        mPlayer = new MediaPlayer();
+        mPlayer.setLooping(true);
+        createNotificationChannel();
+
+        sharedPreferences = getSharedPreferences(SHARED_PREFS,MODE_PRIVATE);
 
         try {
             FirebaseApp.initializeApp(this);
@@ -46,7 +77,7 @@ public class App extends Application {
 
             androidId = Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
 
-            Log.d("kkkkkk", "onCreate: "+androidId);
+            Log.d("kkkkkk", "onCreate: " + androidId);
 
 
             mDb.collection("users")
@@ -62,7 +93,7 @@ public class App extends Application {
                                     DocumentReference ref = documentSnapshot.getReference();
                                     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                                     String currentDateTime = dateFormat.format(new Date());
-                                    ref.update("lastLogin",currentDateTime);
+                                    ref.update("lastLogin", currentDateTime);
                                     Log.d("kkkkkk", "onComplete: " + userDocId);
                                 }
                             } else {
@@ -71,7 +102,7 @@ public class App extends Application {
                                 currentUser.setUserPoints(0);
                                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                                 String currentDateTime = dateFormat.format(new Date());
-                                Log.d("ttttt", "onComplete: "+currentDateTime);
+                                Log.d("ttttt", "onComplete: " + currentDateTime);
                                 currentUser.setLoginDate(currentDateTime);
                                 userDocumentReference = mDb.collection("users").document();
                                 userDocumentReference.set(currentUser);
@@ -84,6 +115,20 @@ public class App extends Application {
         } catch (Exception ex) {
 
         }
+    }
 
+
+
+
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel serviceChannel = new NotificationChannel(
+                    CHANNEL_ID,
+                    "Example Service Channel",
+                    NotificationManager.IMPORTANCE_LOW
+            );
+            NotificationManager manager = getSystemService(NotificationManager.class);
+            manager.createNotificationChannel(serviceChannel);
+        }
     }
 }

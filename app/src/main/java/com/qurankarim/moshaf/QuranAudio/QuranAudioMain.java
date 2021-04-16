@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -61,6 +62,7 @@ public class QuranAudioMain extends AppCompatActivity {
     private SearchView searchView;
 
     private DatabaseHelper favQariDb;
+    private ImageView resumeBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +76,24 @@ public class QuranAudioMain extends AppCompatActivity {
         allBtn = findViewById(R.id.all_btn);
         favBtn = findViewById(R.id.fav_btn);
 
+        resumeBtn = findViewById(R.id.resume_btn);
+
+
+        resumeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (App.currentUrl != null){
+                    Intent intent = new Intent(QuranAudioMain.this, ShowQuranAndAudio.class);
+                    intent.putExtra("qariname", App.currentPlayQariName);
+                    intent.putExtra("suraname", App.currentPlaySuraName);
+                    intent.putExtra("suraposition", App.currentPlaySuraNumber);
+                    intent.putExtra("qaripath", App.currentPlayQariPath);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(QuranAudioMain.this, "لا يوجد سور تم تشغيلها", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
         favQariDb = new DatabaseHelper(this);
 
         String fileData = ReadFromFile("qaris.json");
@@ -217,7 +237,7 @@ public class QuranAudioMain extends AppCompatActivity {
             db.close();
         }
 
-        favAdapter = new FavQariAdapter(this,favQariModelList);
+        favAdapter = new FavQariAdapter(this, favQariModelList);
 
         qarisRecyclerView.setAdapter(favAdapter);
     }

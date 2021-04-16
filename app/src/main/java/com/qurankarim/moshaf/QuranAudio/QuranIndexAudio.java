@@ -11,10 +11,13 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.qurankarim.moshaf.App;
 import com.qurankarim.moshaf.DatabaseHelper;
 import com.qurankarim.moshaf.Quran.Adapter;
 import com.qurankarim.moshaf.Quran.FavAdapter;
@@ -56,6 +59,8 @@ public class QuranIndexAudio extends AppCompatActivity implements Adapter.onSura
 
     private Context mContext = this;
 
+    private ImageView resumeBtn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +71,8 @@ public class QuranIndexAudio extends AppCompatActivity implements Adapter.onSura
         searchView = findViewById(R.id.search_action);
         favBtn = findViewById(R.id.fav_btn);
         allBtn = findViewById(R.id.all_btn);
+
+        resumeBtn = findViewById(R.id.resume_btn);
 
         allBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,6 +92,22 @@ public class QuranIndexAudio extends AppCompatActivity implements Adapter.onSura
             @Override
             public void onClick(View v) {
                 searchView.onActionViewExpanded();
+            }
+        });
+
+        resumeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (App.currentUrl != null){
+                    Intent intent = new Intent(QuranIndexAudio.this, ShowQuranAndAudio.class);
+                    intent.putExtra("qariname", App.currentPlayQariName);
+                    intent.putExtra("suraname", App.currentPlaySuraName);
+                    intent.putExtra("suraposition", App.currentPlaySuraNumber);
+                    intent.putExtra("qaripath", App.currentPlayQariPath);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(QuranIndexAudio.this, "لا يوجد سور تم تشغيلها", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

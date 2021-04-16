@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent shareIntent = new Intent(Intent.ACTION_SEND);
                 shareIntent.setType("text/plain");
                 shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Quran Lite");
-                String shareMessage= "\nيمكنك تحميل البرنامج من خلال اللينك \n\n";
+                String shareMessage= "ادعوك لتحمبل (تطبيق القرآن الكريم lite) "+"\n" + "يمكنك من خلاله قراءة القرآن الكريم كاملا مع الاستماع لأكثر من 50 مقراء وتلاوت نادرة كما يوجد في التطبيق أذكار وأدعية وكتاب حصن المسلم كاملا وسبحة"+"\n"+ "حمل التطبيق الان من خلال الرابط : "+"\n";
                 shareMessage = shareMessage + "https://play.google.com/store/apps/details?id=com.qurankarim.moshaf";
                 shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
                 startActivity(Intent.createChooser(shareIntent, "choose one"));

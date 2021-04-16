@@ -98,7 +98,6 @@ public class SurahShow extends AppCompatActivity {
             try {
                 suraNameText.setText(suraName);
                 int suraNumber = Integer.parseInt(suraNumberString);
-
                 Log.d("llll", "ConvertStringToJSON: " + suraNumber);
 
                 for (int i = 0; i < quran.length(); i++) {

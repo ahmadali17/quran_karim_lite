@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="com.android.vending.BILLING" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
         android:name=".App"
@@ -17,7 +18,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:supportsRtl">
-        <activity android:name=".Quran.QuranIndexActivity"></activity>
+        <activity android:name=".Quran.JuzShowActivity"></activity>
+        <activity android:name=".QuranByJuz.QuranJuzIndexActivity" />
+        <activity android:name=".Quran.QuranIndexActivity" />
         <activity android:name=".Da3mActivity" />
         <activity android:name=".AboutActivity" />
         <activity android:name=".ReportProblemActivity" />
@@ -30,7 +33,6 @@
         <activity android:name=".Azkar.AzkarMain" />
         <activity android:name=".Sebhaa.SebhaaActivity" />
         <activity android:name=".Adiah.AdiahActivity" />
-        <activity android:name=".Surahs.QuranIndex" />
         <activity android:name=".Quran.SurahShow" />
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -39,9 +41,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity> <!-- Sample AdMob App ID: ca-app-pub-3940256099942544~3347511713 -->
+
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-2923262614703652~7681859993" />
+        <service android:name=".NotificationService"/>
+        <receiver android:name=".NotificationActionService"/>
     </application>
 
 </manifest>

@@ -3,6 +3,7 @@ package com.qurankarim.moshaf.Azkar;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,6 +37,7 @@ public class AzkarAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         TextView zekrRepeatText;
         ImageView copyZekr;
         ImageView zekrBlessImage;
+        ImageView zekrShare;
 
         public ItemViewHolder(@NonNull final View itemView) {
             super(itemView);
@@ -43,16 +45,32 @@ public class AzkarAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             zekrRepeatText = itemView.findViewById(R.id.zekr_repeat_text);
             copyZekr = itemView.findViewById(R.id.zekr_copy);
             zekrBlessImage = itemView.findViewById(R.id.zekr_info);
+            zekrShare = itemView.findViewById(R.id.zekr_share);
 
-            final ArrayList <String> zekrBlassList = AzkarShow.azkarblessList;
+            final ArrayList<String> zekrBlassList = AzkarShow.azkarblessList;
             copyZekr.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     ClipboardManager clipboard = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
                     ClipData clip = ClipData.newPlainText("copied text", zekrContentText.getText().toString()
-                            +"\n\n"+ "يمكنك قراءة المزيد من الأدعية و الأذكار من خلال تحميل التطبيق" + "\n"+ "https://play.google.com/store/apps/details?id=com.qurankarim.moshaf");
+                            + "\n\n" + "يمكنك قراءة القرآن الكريم كاملا والاستماع لأكثر من 50 مقراء مع تلاوات نادرة و لمزيد من الأدعية و الأذكار من خلال التطبيق" + "\n" + "https://play.google.com/store/apps/details?id=com.qurankarim.moshaf");
                     clipboard.setPrimaryClip(clip);
                     Toast.makeText(context, "تم النسخ", Toast.LENGTH_SHORT).show();
+                }
+            });
+            zekrShare.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    try {
+                        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                        shareIntent.setType("text/plain");
+                        shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Quran Lite");
+                        String shareMessage = zekrContentText.getText().toString() + "\n\n" + "يمكنك قراءة القرآن الكريم كاملا والاستماع لأكثر من 50 مقراء مع تلاوات نادرة و لمزيد من الأدعية و الأذكار من خلال التطبيق" + "\n" + "https://play.google.com/store/apps/details?id=com.qurankarim.moshaf";
+                        shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
+                        context.startActivity(Intent.createChooser(shareIntent, "choose one"));
+                    } catch (Exception e) {
+                        //e.toString();
+                    }
                 }
             });
             zekrRepeatText.setOnClickListener(new View.OnClickListener() {

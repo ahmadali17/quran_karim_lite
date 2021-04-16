@@ -34,7 +34,7 @@
                 <TextView
                     android:id="@+id/quran_label"
                     android:layout_width="0dp"
-                    android:layout_weight="1"
+                    android:layout_weight="10"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:fontFamily="@font/naskh"
@@ -43,6 +43,12 @@
                     android:textAlignment="center"
                     android:textColor="@android:color/white"
                     android:textSize="18sp" />
+                <ImageView
+                    android:id="@+id/resume_btn"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_baseline_play_circle_outline"/>
             </LinearLayout>
             <SearchView
                 android:layout_margin="5dp"
@@ -54,7 +60,7 @@
                 android:textAlignment="center"
                 android:layout_gravity="center"
                 android:layoutDirection="rtl"
-                android:queryHint="بحث بأسم السورة"
+                android:queryHint="بحث بأسم القارئ"
                 android:gravity="center" />
         </LinearLayout>
 
@@ -136,6 +142,18 @@
         android:textColor="@android:color/black"
         android:textSize="25sp"
         android:visibility="gone" />
+
+    <TextView
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textSize="25sp"
+        android:textAlignment="center"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:background="@android:color/white"
+        android:textColor="@android:color/black"
+        android:text="لا يوجد سور في القائمة\n برجاء إضافة سور للمفضلة حتي يتم عرضها"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/qaris_recycler_view"
